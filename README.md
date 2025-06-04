@@ -1,27 +1,53 @@
-Sürekli aynı kahramanlarla mı oynuyorsunuz? 
+# Dota 2 Hero Randomizer
 
-Comfort zone'unuzdan çıkmakta zorlanıyor musunuz?
+🎲 Dota 2 oyuncuları için geliştirilmiş kahraman seçim aracı
 
-Dota2Dice.com ile tanışın! 🎲
+## 📖 Hakkında
 
-✨ Neler sunuyor:
+Dota 2 Hero Randomizer, oyuncuların farklı kahramanları keşfetmelerine ve comfort zone'larından çıkmalarına yardımcı olan web tabanlı bir araçtır. 126 Dota 2 kahramanının tamamını destekler ve çeşitli filtreleme seçenekleri sunar.
 
-126 Dota 2 kahramanının tamamını kapsıyor
+## ✨ Özellikler
 
-Role bazında filtreleme (carry, support, nuker, vs.)
+- **Tam Kahraman Listesi**: 126 Dota 2 kahramanının tamamı
+- **Role Filtresi**: carry, support, nuker, initiator, disabler, pusher, escape, durable
+- **Özellik Filtresi**: Strength (STR), Agility (AGI), Intelligence (INT)
+- **Saldırı Tipi**: Melee ve Ranged ayrımı
+- **Responsive Tasarım**: Mobil ve masaüstü uyumlu
+- **Hızlı Yükleme**: Optimized performans
 
-Özellik türüne göre seçim (STR, AGI, INT)
+## 🎯 Kullanım Alanları
 
-Saldırı tipine göre ayrım (melee/ranged)
+- **Skill Geliştirme**: Farklı role'lerde deneyim kazanma
+- **Meta Çeşitliliği**: Popüler pick'lerin dışında kahraman deneme
+- **Takım Oyunu**: Arkadaşlarla random draft challenge'ları
+- **Eğitim**: Yeni başlayanlar için kahraman keşfi
+- **Eğlence**: Casual oyunlar için rastgele seçimler
 
-Temiz ve kullanıcı dostu arayüz
+## 🚀 Demo
 
-🎯 Neden kullanmalısınız:
+Siteyi ziyaret edin: [https://dota2dice.com/](https://dota2dice.com/)
 
-Meta'dan çıkıp farklı kahramanlar deneyebilirsiniz
+## 🛠️ Teknolojiler
 
-Skill setinizi genişletir ve daha versatile bir oyuncu olursunuz
+- Modern web teknolojileri
+- Responsive design
+- Dota 2 resmi kahraman veritabanı entegrasyonu
 
-Takım arkadaşlarınızla eğlenceli draft deneyimleri yaşarsınız
+## 📊 İstatistikler
 
-Ranked oyunlardan önce random hero challenge'ları yapabilirsiniz
+- **Toplam Kahraman**: 126
+- **Role Kategorisi**: 8 farklı rol
+- **Özellik Tipi**: 3 ana özellik (STR/AGI/INT)
+- **Platform**: Web (tüm cihazlar)
+
+## 🤝 Katkıda Bulunma
+
+Bu proje Dota 2 topluluğu için geliştirilmiştir. Önerilerinizi ve geri bildirimlerinizi bekliyoruz.
+
+## 📞 İletişim
+
+Sorularınız ve önerileriniz için issue açabilirsiniz.
+
+---
+
+**Made for Dota 2 Community** 🎮
