@@ -1,0 +1,240 @@
+﻿/* Theme System - wwwroot/css/theme.css */
+:root {
+    /* Light theme */
+    --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bg-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --bg-surface: rgba(255, 255, 255, 0.95);
+    --bg-card: rgba(255, 255, 255, 0.98);
+    --bg-glass: rgba(255, 255, 255, 0.1);
+    --text-primary: #2d3748;
+    --text-secondary: #4a5568;
+    --text-muted: #718096;
+    --text-accent: #667eea;
+    --text-white: #ffffff;
+    --border-color: rgba(102, 126, 234, 0.2);
+    --border-light: rgba(0, 0, 0, 0.1);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.15);
+    --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.1);
+    --navbar-bg: rgba(255, 255, 255, 0.9);
+    --footer-bg: rgba(255, 255, 255, 0.8);
+    /* Status colors */
+    --color-primary: #667eea;
+    --color-success: #48bb78;
+    --color-warning: #ed8936;
+    --color-danger: #f56565;
+    --color-info: #4299e1;
+    --color-dark: #2d3748;
+    --color-light: #f7fafc;
+}
+
+[data-theme="dark"] {
+    /* Dark theme */
+    --bg-primary: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    --bg-secondary: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+    --bg-surface: rgba(26, 32, 44, 0.95);
+    --bg-card: rgba(45, 55, 72, 0.98);
+    --bg-glass: rgba(255, 255, 255, 0.05);
+    --text-primary: #f7fafc;
+    --text-secondary: #e2e8f0;
+    --text-muted: #a0aec0;
+    --text-accent: #90cdf4;
+    --text-white: #f7fafc;
+    --border-color: rgba(144, 205, 244, 0.2);
+    --border-light: rgba(255, 255, 255, 0.1);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.4);
+    --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.3);
+    --navbar-bg: rgba(26, 32, 44, 0.9);
+    --footer-bg: rgba(26, 32, 44, 0.8);
+    /* Status colors for dark mode */
+    --color-primary: #90cdf4;
+    --color-success: #68d391;
+    --color-warning: #fbb439;
+    --color-danger: #fc8181;
+    --color-info: #63b3ed;
+    --color-dark: #1a202c;
+    --color-light: #2d3748;
+}
+
+* {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    position: relative;
+}
+
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: -1;
+    }
+
+[data-theme="dark"] body::before {
+    background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%), radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+}
+
+/* Layout Components */
+.navbar {
+    background: var(--navbar-bg) !important;
+    backdrop-filter: blur(20px);
+    border: none !important;
+    box-shadow: var(--shadow);
+    border-radius: 0 0 20px 20px;
+    margin-bottom: 2rem;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    background: linear-gradient(45deg, var(--color-primary), #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.nav-link {
+    color: var(--text-primary) !important;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+    .nav-link::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(45deg, var(--color-primary), #764ba2);
+        transform: translateX(-50%);
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::before {
+        width: 100%;
+    }
+
+    .nav-link:hover {
+        color: var(--text-accent) !important;
+        transform: translateY(-1px);
+    }
+
+main {
+    background: var(--bg-surface);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    min-height: 60vh;
+}
+
+    main:hover {
+        box-shadow: var(--shadow-hover);
+        transform: translateY(-2px);
+    }
+
+.footer {
+    background: var(--footer-bg) !important;
+    backdrop-filter: blur(20px);
+    border-radius: 20px 20px 0 0;
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+    color: var(--text-secondary) !important;
+    margin-top: 3rem;
+    padding: 1.5rem 0;
+}
+
+    .footer a {
+        color: var(--text-accent);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+        .footer a:hover {
+            color: var(--text-primary);
+            transform: translateY(-1px);
+        }
+
+/* Theme Toggle */
+.theme-toggle {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+    padding: 8px 16px;
+    color: var(--text-primary);
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+    .theme-toggle:hover {
+        background: var(--bg-secondary);
+        transform: scale(1.05);
+        box-shadow: var(--shadow-hover);
+    }
+
+.navbar-toggler {
+    border: none;
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    color: var(--text-primary);
+}
+
+    .navbar-toggler:focus {
+        box-shadow: none;
+    }
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='currentColor' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-glass);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, var(--color-primary), #764ba2);
+    border-radius: 4px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(45deg, #764ba2, var(--color-primary));
+    }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    main {
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border-radius: 16px;
+    }
+
+    .navbar {
+        border-radius: 0 0 16px 16px;
+    }
+
+    .footer {
+        border-radius: 16px 16px 0 0;
+    }
+}

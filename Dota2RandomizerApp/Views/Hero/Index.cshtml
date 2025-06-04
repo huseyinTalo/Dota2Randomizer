@@ -1,0 +1,520 @@
+﻿@model IEnumerable<Dota2RandomizerApp.Models.Hero>
+@{
+    ViewData["Title"] = "Hero Randomizer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="column">
+        <div class="col-md-12">
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="text-primary">
+                    <i class="fas fa-dice"></i> Dota 2 Hero Randomizer
+                </h1>
+                <div>
+                    <button type="button" class="btn btn-outline-primary me-2" onclick="selectAll()">
+                        <i class="fas fa-check-double"></i> Select All
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary me-2" onclick="clearAll()">
+                        <i class="fas fa-times"></i> Clear All
+                    </button>
+                </div>
+            </div>
+
+            <!-- Advanced Filters -->
+            <div class="card mb-4">
+                <div class="card-header bg-secondary text-white">
+                    <h6 class="mb-0">
+                        <button class="btn btn-link text-white p-0 text-decoration-none" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#filtersCollapse"
+                                aria-expanded="false" aria-controls="filtersCollapse">
+                            <i class="fas fa-filter"></i> Advanced Filters
+                            <i class="fas fa-chevron-down ms-1" id="filterToggleIcon"></i>
+                        </button>
+                        <span class="badge bg-warning ms-2" id="activeFiltersCount" style="display: none;">0 active</span>
+                    </h6>
+                </div>
+                <div class="collapse" id="filtersCollapse">
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Primary Attribute Filter -->
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-magic"></i> Primary Attribute
+                                </label>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input attribute-filter" type="checkbox"
+                                               value="str" id="attr_str" onchange="applyFilters()">
+                                        <label class="form-check-label" for="attr_str">
+                                            <span class="badge bg-danger">Strength</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input attribute-filter" type="checkbox"
+                                               value="agi" id="attr_agi" onchange="applyFilters()">
+                                        <label class="form-check-label" for="attr_agi">
+                                            <span class="badge bg-success">Agility</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input attribute-filter" type="checkbox"
+                                               value="int" id="attr_int" onchange="applyFilters()">
+                                        <label class="form-check-label" for="attr_int">
+                                            <span class="badge bg-primary">Intelligence</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input attribute-filter" type="checkbox"
+                                               value="all" id="attr_all" onchange="applyFilters()">
+                                        <label class="form-check-label" for="attr_all">
+                                            <span class="badge bg-warning">Universal</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Attack Type Filter -->
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-sword"></i> Attack Type
+                                </label>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input attack-filter" type="checkbox"
+                                               value="melee" id="attack_melee" onchange="applyFilters()">
+                                        <label class="form-check-label" for="attack_melee">
+                                            <span class="badge bg-warning">Melee</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input attack-filter" type="checkbox"
+                                               value="ranged" id="attack_ranged" onchange="applyFilters()">
+                                        <label class="form-check-label" for="attack_ranged">
+                                            <span class="badge bg-info">Ranged</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Roles Filter -->
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-users-cog"></i> Roles
+                                </label>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input role-filter" type="checkbox"
+                                               value="Carry" id="role_carry" onchange="applyFilters()">
+                                        <label class="form-check-label" for="role_carry">
+                                            <span class="badge bg-danger">Carry</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input role-filter" type="checkbox"
+                                               value="Support" id="role_support" onchange="applyFilters()">
+                                        <label class="form-check-label" for="role_support">
+                                            <span class="badge bg-info">Support</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input role-filter" type="checkbox"
+                                               value="Nuker" id="role_nuker" onchange="applyFilters()">
+                                        <label class="form-check-label" for="role_nuker">
+                                            <span class="badge bg-warning">Nuker</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input role-filter" type="checkbox"
+                                               value="Disabler" id="role_disabler" onchange="applyFilters()">
+                                        <label class="form-check-label" for="role_disabler">
+                                            <span class="badge bg-dark">Disabler</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input role-filter" type="checkbox"
+                                               value="Initiator" id="role_initiator" onchange="applyFilters()">
+                                        <label class="form-check-label" for="role_initiator">
+                                            <span class="badge bg-primary">Initiator</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input role-filter" type="checkbox"
+                                               value="Durable" id="role_durable" onchange="applyFilters()">
+                                        <label class="form-check-label" for="role_durable">
+                                            <span class="badge bg-success">Durable</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input role-filter" type="checkbox"
+                                               value="Escape" id="role_escape" onchange="applyFilters()">
+                                        <label class="form-check-label" for="role_escape">
+                                            <span class="badge bg-secondary">Escape</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input role-filter" type="checkbox"
+                                               value="Pusher" id="role_pusher" onchange="applyFilters()">
+                                        <label class="form-check-label" for="role_pusher">
+                                            <span class="badge bg-light text-light">Pusher</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="selectFilteredHeroes()">
+                                        <i class="fas fa-check-square"></i> Select Filtered
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="clearFilters()">
+                                        <i class="fas fa-eraser"></i> Clear Filters
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selection Controls -->
+            <div class="card mb-4">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-users"></i> Select Your Heroes
+                        <span class="badge bg-primary ms-2" id="selectedCount">0</span> selected
+                        <span class="badge bg-info ms-1" id="visibleCount">@Model.Count()</span> visible
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-lg btn-danger w-100 pulse-button"
+                                    id="randomizeBtn" onclick="randomizeHero()" disabled>
+                                <i class="fas fa-dice-six"></i> GET RANDOM HERO
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="progress mt-2" style="height: 25px;">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+                                     role="progressbar" style="width: 0%" id="selectionProgress">
+                                    <span id="progressText">Select heroes to begin</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <!-- Random Hero Display -->
+        <div class="col-md-4">
+            <div class="sticky-top mb-4" style="top: 20px;">
+                <div class="card shadow-lg" id="randomHeroCard" style="display: none;">
+                    <div class="card-header bg-gradient text-white text-center">
+                        <h4 class="mb-0">
+                            <i class="fas fa-star"></i> Your Random Hero
+                        </h4>
+                    </div>
+                    <div class="card-body text-center p-4">
+                        <div class="hero-reveal-container">
+                            <img id="randomHeroImage" src="" alt=""
+                                 class="img-fluid rounded-circle shadow-lg mb-3 hero-reveal-image"
+                                 style="max-width: 150px; border: 4px solid #ffd700;" />
+                            <h3 id="randomHeroName" class="text-primary mb-2 hero-reveal-text"></h3>
+                            <p id="randomHeroSubname" class="text-muted mb-3 hero-reveal-text"></p>
+                            <div id="randomHeroDetails" class="hero-reveal-text">
+                                <span id="randomHeroAttack" class="badge bg-dark me-2"></span>
+                                <span id="randomHeroRoles" class="badge bg-primary"></span>
+                            </div>
+                            <button type="button" class="btn btn-outline-danger mt-3" onclick="randomizeHero()">
+                                <i class="fas fa-redo"></i> Pick Another
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- Heroes Grid -->
+            <div class="row" id="heroesGrid">
+                @foreach (var item in Model)
+                {
+                            <div class="col-lg-4 col-md-6 col-sm-12 mb-3 hero-item"
+                                 data-hero-id="@item.Id"
+                                 data-attribute="@item.PrimaryAttribute?.ToLower()"
+                                 data-roles="@item.Roles?.ToLower()"
+                                 data-attack-type="@item.AttackType?.ToLower()">
+                                <div class="card hero-card h-100 shadow-sm">
+                                    <div class="card-header p-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input hero-checkbox" type="checkbox"
+                                                   value="@item.Id" id="hero_@item.Id" onchange="updateSelection()">
+                                            <label class="form-check-label fw-bold" for="hero_@item.Id">
+                                        @item.LocalizedName
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="card-body p-2 text-center">
+                                        <img src="@item.ImageUrl" alt="@item.LocalizedName"
+                                             class="img-fluid rounded hero-image mb-2" style="max-height: 80px;" />
+                                        <div class="hero-details">
+                                            <small class="text-muted d-block">@item.Name</small>
+                                            <span class="badge bg-secondary me-1">@item.AttackType</span>
+                                            <span class="badge bg-info">@item.Roles</span>
+                                            <span class="badge bg-info">@item.PrimaryAttribute</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                }
+            </div>
+        </div>
+
+        <!-- Statistics Section -->
+        <div class="row mt-4 mb-5">
+            <div class="col-12">
+                <div class="card shadow">
+                    <div class="card-header bg-info text-white text-center">
+                        <h5 class="mb-0">
+                            <i class="fas fa-chart-bar"></i> Statistics
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-3 col-6 mb-3">
+                                <h3 id="totalHeroesBottom" class="text-primary">@Model.Count()</h3>
+                                <small class="text-muted">Total Heroes</small>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <h3 id="randomizationsBottom" class="text-success">0</h3>
+                                <small class="text-muted">Randomizations</small>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <h3 id="visibleHeroesCount" class="text-warning">@Model.Count()</h3>
+                                <small class="text-muted">Visible Heroes</small>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <h3 id="selectedHeroesCount" class="text-info">0</h3>
+                                <small class="text-muted">Selected Heroes</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let heroes = @Html.Raw(Json.Serialize(Model));
+    let selectedHeroes = [];
+    let randomizationCount = 0;
+
+    // Track filter collapse state
+    document.addEventListener('DOMContentLoaded', function() {
+        const filtersCollapse = document.getElementById('filtersCollapse');
+        const toggleIcon = document.getElementById('filterToggleIcon');
+
+        filtersCollapse.addEventListener('show.bs.collapse', function () {
+            toggleIcon.classList.remove('fa-chevron-down');
+            toggleIcon.classList.add('fa-chevron-up');
+        });
+
+        filtersCollapse.addEventListener('hide.bs.collapse', function () {
+            toggleIcon.classList.remove('fa-chevron-up');
+            toggleIcon.classList.add('fa-chevron-down');
+        });
+
+        // Add click handlers to hero cards
+        document.querySelectorAll('.hero-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (e.target.type !== 'checkbox') {
+                    const checkbox = this.querySelector('.hero-checkbox');
+                    checkbox.checked = !checkbox.checked;
+                    updateSelection();
+                }
+            });
+        });
+    });
+
+    function applyFilters() {
+        const attributeFilters = Array.from(document.querySelectorAll('.attribute-filter:checked')).map(cb => cb.value);
+        const roleFilters = Array.from(document.querySelectorAll('.role-filter:checked')).map(cb => cb.value.toLowerCase());
+        const attackFilters = Array.from(document.querySelectorAll('.attack-filter:checked')).map(cb => cb.value);
+
+        const heroItems = document.querySelectorAll('.hero-item');
+        let visibleCount = 0;
+
+        heroItems.forEach(item => {
+            const heroAttribute = item.dataset.attribute;
+            const heroRoles = item.dataset.roles.toLowerCase();
+            const heroAttackType = item.dataset.attackType;
+
+            let showHero = true;
+
+            // Apply attribute filter
+            if (attributeFilters.length > 0) {
+                const attributeMatch = attributeFilters.includes(heroAttribute);
+                if (!attributeMatch) showHero = false;
+            }
+
+            // Apply attack type filter
+            if (attackFilters.length > 0 && showHero) {
+                const attackMatch = attackFilters.includes(heroAttackType);
+                if (!attackMatch) showHero = false;
+            }
+
+            // Apply role filter (AND logic - hero must have ALL selected roles)
+            if (roleFilters.length > 0 && showHero) {
+                const roleMatch = roleFilters.every(role => heroRoles && heroRoles.includes(role));
+                if (!roleMatch) showHero = false;
+            }
+
+            if (showHero) {
+                item.classList.remove('filtered-out');
+                visibleCount++;
+            } else {
+                item.classList.add('filtered-out');
+                // Uncheck hidden heroes
+                const checkbox = item.querySelector('.hero-checkbox');
+                if (checkbox.checked) {
+                    checkbox.checked = false;
+                }
+            }
+        });
+
+        // Update counters
+        document.getElementById('visibleCount').textContent = visibleCount;
+        document.getElementById('visibleHeroesCount').textContent = visibleCount;
+        updateActiveFiltersCount();
+        updateSelection();
+    }
+
+    function updateActiveFiltersCount() {
+        const attributeFilters = document.querySelectorAll('.attribute-filter:checked').length;
+        const roleFilters = document.querySelectorAll('.role-filter:checked').length;
+        const attackFilters = document.querySelectorAll('.attack-filter:checked').length;
+        const totalFilters = attributeFilters + roleFilters + attackFilters;
+
+        const badge = document.getElementById('activeFiltersCount');
+        if (totalFilters > 0) {
+            badge.textContent = totalFilters + ' active';
+            badge.style.display = 'inline';
+        } else {
+            badge.style.display = 'none';
+        }
+    }
+
+    function clearFilters() {
+        document.querySelectorAll('.attribute-filter, .role-filter, .attack-filter').forEach(cb => cb.checked = false);
+        applyFilters();
+    }
+
+    function selectFilteredHeroes() {
+        document.querySelectorAll('.hero-item:not(.filtered-out) .hero-checkbox').forEach(cb => cb.checked = true);
+        updateSelection();
+    }
+
+    function updateSelection() {
+        selectedHeroes = [];
+        const checkboxes = document.querySelectorAll('.hero-checkbox:checked');
+
+        // Update selected heroes array
+        checkboxes.forEach(cb => {
+            const heroId = cb.value;
+            const hero = heroes.find(h => h.id === heroId);
+            if (hero) selectedHeroes.push(hero);
+        });
+
+        // Update UI
+        document.getElementById('selectedCount').textContent = selectedHeroes.length;
+        document.getElementById('selectedHeroesCount').textContent = selectedHeroes.length;
+        document.getElementById('randomizeBtn').disabled = selectedHeroes.length === 0;
+
+        // Update progress bar
+        const visibleHeroes = document.querySelectorAll('.hero-item:not(.filtered-out)').length;
+        const percentage = visibleHeroes > 0 ? (selectedHeroes.length / visibleHeroes) * 100 : 0;
+        const progressBar = document.getElementById('selectionProgress');
+        const progressText = document.getElementById('progressText');
+
+        progressBar.style.width = percentage + '%';
+        if (selectedHeroes.length === 0) {
+            progressText.textContent = 'Select heroes to begin';
+        } else {
+            progressText.textContent = `${selectedHeroes.length} of ${visibleHeroes} visible heroes selected`;
+        }
+
+        // Update card styling
+        document.querySelectorAll('.hero-card').forEach(card => {
+            const checkbox = card.querySelector('.hero-checkbox');
+            if (checkbox.checked) {
+                card.classList.add('selected');
+            } else {
+                card.classList.remove('selected');
+            }
+        });
+    }
+
+    function selectAll() {
+        document.querySelectorAll('.hero-item:not(.filtered-out) .hero-checkbox').forEach(cb => cb.checked = true);
+        updateSelection();
+    }
+
+    function clearAll() {
+        document.querySelectorAll('.hero-checkbox').forEach(cb => cb.checked = false);
+        updateSelection();
+        document.getElementById('randomHeroCard').style.display = 'none';
+    }
+
+    function randomizeHero() {
+        if (selectedHeroes.length === 0) return;
+
+        // Show loading state
+        const btn = document.getElementById('randomizeBtn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Randomizing...';
+        btn.disabled = true;
+
+        // Simulate randomization delay for effect
+        setTimeout(() => {
+            const randomIndex = Math.floor(Math.random() * selectedHeroes.length);
+            const randomHero = selectedHeroes[randomIndex];
+
+            displayRandomHero(randomHero);
+
+            // Update counter
+            randomizationCount++;
+            document.getElementById('randomizationsBottom').textContent = randomizationCount;
+
+            // Reset button
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }, 1500);
+    }
+
+    function displayRandomHero(hero) {
+        // Hide card first
+        const card = document.getElementById('randomHeroCard');
+        const container = card.querySelector('.hero-reveal-container');
+
+        container.classList.remove('show');
+
+        setTimeout(() => {
+            // Update content
+            document.getElementById('randomHeroImage').src = hero.imageUrl;
+            document.getElementById('randomHeroImage').alt = hero.localizedName;
+            document.getElementById('randomHeroName').textContent = hero.localizedName;
+            document.getElementById('randomHeroSubname').textContent = hero.name;
+            document.getElementById('randomHeroAttack').textContent = hero.attackType;
+            document.getElementById('randomHeroRoles').textContent = hero.roles;
+
+            // Show card with animation
+            card.style.display = 'block';
+
+            setTimeout(() => {
+                container.classList.add('show');
+            }, 100);
+        }, 200);
+    }
+</script>
